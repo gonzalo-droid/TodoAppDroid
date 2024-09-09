@@ -1,11 +1,16 @@
 plugins {
-    id("kotlin-kapt")
-    alias(libs.plugins.roomAndroid)
+    //id("kotlin-kapt")
+    id("org.jetbrains.kotlin.kapt")
+    // alias(libs.plugins.roomAndroid)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    alias(libs.plugins.daggerHiltAndroid)
+    id("dagger.hilt.android.plugin")
+    id("androidx.room")
+    // alias(libs.plugins.daggerHiltAndroid)
+    // alias(libs.plugins.kotlinKapt)
+    // id("com.google.devtools.ksp")
+
 }
-// namespace = "com.gondroid.todocompose
 
 
 android {
@@ -32,6 +37,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
         }
     }
     compileOptions {
@@ -76,11 +82,20 @@ dependencies {
     implementation(libs.androidx.compose.runtime)
 
     // Room
-    implementation(libs.androidx.room.runtime)
+    val room_version = "2.6.1"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:$room_version")
+    // implementation(libs.androidx.room.runtime)
     //noinspection KaptUsageInsteadOfKsp
-    kapt(libs.androidx.room.compiler)
-    annotationProcessor(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
+    // kapt(libs.androidx.room.compiler)
+    //implementation(libs.androidx.room.ktx)
+    //annotationProcessor(libs.androidx.room.compiler)
+
 
 
     testImplementation(libs.junit)
@@ -92,9 +107,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
-
-
 // Allow references to generated code
+
 kapt {
     correctErrorTypes = true
 }

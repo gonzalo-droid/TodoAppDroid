@@ -3,19 +3,18 @@ package com.gondroid.todocompose.addtasks.data
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
+    @Query("SELECT * FROM task")
+    fun getTasks() : Flow<List<TaskEntity>>
 
-    @Query("SELECT * FROM TaskEntity")
-    fun getTasks(): Flow<List<TaskEntity>>
-
-    @Insert
-    suspend fun addTask(taskEntity: TaskEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addTask(task : TaskEntity)
 
     @Delete
-    suspend fun deleteTask(taskEntity: TaskEntity)
-
+    suspend fun deleteTask(task : TaskEntity)
 }

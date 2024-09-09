@@ -11,6 +11,7 @@ composeBom = "2023.08.00"
 daggerHilt = "2.44"
 composeRuntine = "1.6.7"
 roomRuntime = "2.6.1"
+kaptVersion = "1.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,7 +32,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "daggerHilt" }
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "daggerHilt" }
 
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomRuntime" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomRuntime" }
 
@@ -41,3 +42,4 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 daggerHiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
 roomAndroid = { id = "androidx.room", version.ref = "roomRuntime" }
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kaptVersion" }
