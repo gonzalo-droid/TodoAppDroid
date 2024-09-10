@@ -1,15 +1,9 @@
 plugins {
-    //id("kotlin-kapt")
-    id("org.jetbrains.kotlin.kapt")
-    // alias(libs.plugins.roomAndroid)
+
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("dagger.hilt.android.plugin")
-    id("androidx.room")
-    // alias(libs.plugins.daggerHiltAndroid)
-    // alias(libs.plugins.kotlinKapt)
-    // id("com.google.devtools.ksp")
-
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 
@@ -51,15 +45,12 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
-    }
-    room {
-        schemaDirectory("$projectDir/schemas")
     }
 }
 
@@ -75,21 +66,19 @@ dependencies {
     implementation(libs.androidx.material3)
 
     // Dagger Hilt
+    ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
 
     // LiveData
     implementation(libs.androidx.compose.runtime)
 
     // Room
-    val room_version = "2.6.1"
+    val roomVersion = "2.5.2"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:$room_version")
-    // To use Kotlin annotation processing tool (kapt)
-    kapt("androidx.room:room-compiler:$room_version")
+
     // implementation(libs.androidx.room.runtime)
     //noinspection KaptUsageInsteadOfKsp
     // kapt(libs.androidx.room.compiler)
@@ -105,10 +94,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-}
-
-// Allow references to generated code
-
-kapt {
-    correctErrorTypes = true
 }

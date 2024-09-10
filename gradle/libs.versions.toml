@@ -1,6 +1,6 @@
 [versions]
 agp = "8.3.2"
-kotlin = "1.9.0"
+kotlin = "1.9.10"
 coreKtx = "1.12.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -8,10 +8,20 @@ espressoCore = "3.5.1"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 composeBom = "2023.08.00"
-daggerHilt = "2.44"
+daggerHilt = "2.48.1"
 composeRuntine = "1.6.7"
 roomRuntime = "2.6.1"
 kaptVersion = "1.9.0"
+ksp = "1.9.10-1.0.13"
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
+
+roomAndroid = { id = "androidx.room", version.ref = "roomRuntime" }
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kaptVersion" }
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -37,9 +47,3 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomRuntime" }
 
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "composeRuntine" }
-[plugins]
-androidApplication = { id = "com.android.application", version.ref = "agp" }
-jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-daggerHiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
-roomAndroid = { id = "androidx.room", version.ref = "roomRuntime" }
-kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kaptVersion" }
