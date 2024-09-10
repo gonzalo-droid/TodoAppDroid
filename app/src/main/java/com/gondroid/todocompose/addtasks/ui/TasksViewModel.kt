@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gondroid.todocompose.addtasks.data.TaskEntity
 import com.gondroid.todocompose.addtasks.domain.AddTaskUseCase
+import com.gondroid.todocompose.addtasks.domain.DeleteTaskUseCase
 import com.gondroid.todocompose.addtasks.domain.GetTaskUseCase
+import com.gondroid.todocompose.addtasks.domain.UpdateTaskUseCase
 import com.gondroid.todocompose.addtasks.ui.TasksUiState.Error
 import com.gondroid.todocompose.addtasks.ui.TasksUiState.Loading
 import com.gondroid.todocompose.addtasks.ui.TasksUiState.Success
@@ -22,6 +25,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TasksViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
+    private val updateTaskUseCase: UpdateTaskUseCase,
+    private val deleteTaskUseCase: DeleteTaskUseCase,
     getTaskUseCase: GetTaskUseCase
 ) : ViewModel() {
 
@@ -55,10 +60,16 @@ class TasksViewModel @Inject constructor(
 //        _tasks[index] = _tasks[index].let {
 //            it.copy(selected = !it.selected)
 //        }
+        viewModelScope.launch {
+            updateTaskUseCase(task.copy(selected = !task.selected))
+        }
 
     }
 
     fun onItemRemove(task: TaskModel) {
+        viewModelScope.launch {
+            deleteTaskUseCase(task)
+        }
 //        val taskModel = _tasks.find { it.id == task.id }
 //        _tasks.remove(taskModel)
     }
